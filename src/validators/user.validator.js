@@ -1,16 +1,19 @@
 import Joi from '@hapi/joi';
+import HttpStatus from 'http-status-codes';
 
-export const newUserValidator = (req, res, next) => {
+export const registrationValidator = (req, res, next) => {
   const schema = Joi.object({
-    firstName: Joi.string().min(3).required(),
-    lastName: Joi.string().min(3).required(),
-    email: Joi.string().min(3).required()
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().required()
   });
-  const { error, value } = schema.validate(req.body);
+  const { error } = schema.validate(req.body);
   if (error) {
-    next(error);
+    return res
+      .status(HttpStatus.UNPROCESSABLE_ENTITY)
+      .json({ code: HttpStatus.UNPROCESSABLE_ENTITY, message: `${error}` });
   } else {
-    req.validatedBody = value;
     next();
   }
 };
