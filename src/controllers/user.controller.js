@@ -40,3 +40,19 @@ export const registerAdmin = async (req, res) => {
       .json({ code: HttpStatus.CONFLICT, message: `${error}` });
   }
 };
+
+export const loginUser = async (req, res) => {
+  try {
+    const token = await UserService.loginUser(req.body);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: token,
+      message: 'User logged in successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.BAD_REQUEST).json({
+      code: HttpStatus.BAD_REQUEST,
+      message: `${error}`
+    });
+  }
+};
