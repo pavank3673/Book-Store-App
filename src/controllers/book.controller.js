@@ -32,3 +32,19 @@ export const newBook = async (req, res) => {
       });
     }
   };
+
+  export const deleteBook = async (req, res) => {
+    try {
+      const data = await BookService.deleteBook(req.params.id,req.body);
+      res.status(HttpStatus.OK).json({
+        code: HttpStatus.OK,
+        data: data,
+        message: 'Book deleted successfully'
+      });
+    } catch (error) {
+      res.status(HttpStatus.FORBIDDEN).json({
+        code: HttpStatus.FORBIDDEN,
+        message: `${error}`
+      });
+    }
+  };

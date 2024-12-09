@@ -66,3 +66,23 @@ export const updateBook = async (bookId, body) => {
           }
 }
 
+export const deleteBook = async (bookId, body) => {
+    console.log("controller -- > body.userId" + body.userId);
+    const existingUser = await UserService.getUserById(body.userId);
+    console.log("existingUser" + existingUser);
+    if(existingUser !== null && existingUser.role == 'ADMIN') {
+        const data = await sequelize.query(
+                'SELECT * FROM delete_book(:bookid);',
+            {
+              replacements: {
+                bookid: bookId,
+              },
+              type: QueryTypes.SELECT,
+              plain: true
+            }
+          );
+          return data;
+        } else {
+            throw new Error('Unauthorized User');
+          }
+}
