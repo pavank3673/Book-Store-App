@@ -33,3 +33,36 @@ export const newBook = async (body) => {
             throw new Error('Unauthorized User');
           }
 }
+
+export const updateBook = async (bookId, body) => {
+    console.log("controller -- > body.userId" + body.userId);
+    const existingUser = await UserService.getUserById(body.userId);
+    console.log("existingUser" + existingUser);
+    if(existingUser !== null && existingUser.role == 'ADMIN') {
+        const data = await sequelize.query(
+                'SELECT * FROM update_book(:bookid, :description, :discountprice, :bookimage, :admin_user_id, :bookname, :author, :quantity, :price, :updatedat, :__v);',
+            {
+              replacements: {
+                bookid: bookId,
+                description: body.description,
+                discountprice: body.discountPrice,
+                bookimage: body.bookImage,
+                admin_user_id: body.admin_user_id,
+                bookname: body.bookName,
+                author: body.author,
+                quantity: body.quantity,
+                price: body.price,
+                updatedat: new Date(),
+                __v: body.__v
+
+              },
+              type: QueryTypes.SELECT,
+              plain: true
+            }
+          );
+          return data;
+        } else {
+            throw new Error('Unauthorized User');
+          }
+}
+

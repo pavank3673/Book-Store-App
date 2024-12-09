@@ -16,3 +16,19 @@ export const newBook = async (req, res) => {
       });
     }
   };
+
+  export const updateBook = async (req, res) => {
+    try {
+      const data = await BookService.updateBook(req.params.id,req.body);
+      res.status(HttpStatus.ACCEPTED).json({
+        code: HttpStatus.ACCEPTED,
+        data: data,
+        message: 'Book updated successfully'
+      });
+    } catch (error) {
+      res.status(HttpStatus.FORBIDDEN).json({
+        code: HttpStatus.FORBIDDEN,
+        message: `${error}`
+      });
+    }
+  };

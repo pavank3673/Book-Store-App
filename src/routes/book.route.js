@@ -8,4 +8,6 @@ const router = express.Router();
 
 router.post('', bookValidator, userAuth, BookController.newBook);
 
+router.put('/:id', bookValidator, userAuth, BookController.updateBook);
+
 export default router;
