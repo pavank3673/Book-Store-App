@@ -86,3 +86,15 @@ export const deleteBook = async (bookId, body) => {
             throw new Error('Unauthorized User');
           }
 }
+
+export const getAllBooks = async () => {
+      const data = await sequelize.query(
+              'SELECT * FROM get_all_books();',
+          {
+            type: QueryTypes.SELECT,
+          }
+        );
+        return data;
+      
+}
+ 

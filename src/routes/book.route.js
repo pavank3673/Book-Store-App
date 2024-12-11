@@ -12,4 +12,6 @@ router.put('/:id', updateBookValidator, userAuth, BookController.updateBook);
 
 router.delete('/:id',bookByIdValidator, userAuth, BookController.deleteBook );
 
+router.get('',userAuth, BookController.getAllBooks);
+
 export default router;

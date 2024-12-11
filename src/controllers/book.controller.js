@@ -48,3 +48,19 @@ export const newBook = async (req, res) => {
       });
     }
   };
+
+  export const getAllBooks = async (req, res) => {
+    try {
+      const data = await BookService.getAllBooks();
+      res.status(HttpStatus.OK).json({
+        code: HttpStatus.OK,
+        data: data,
+        message: 'All books fetched successfully'
+      });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        code: HttpStatus.BAD_REQUEST,
+        message: `${error}`
+      });
+    }
+  };
