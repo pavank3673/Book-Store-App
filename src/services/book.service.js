@@ -97,4 +97,18 @@ export const getAllBooks = async () => {
         return data;
       
 }
+
+export const getBook = async (bookId) => {
+const data = await sequelize.query(
+        'SELECT * FROM get_book_by_id(:bookid);',
+        {
+          replacements: {
+            bookid: bookId,
+          },
+          type: QueryTypes.SELECT,
+          plain: true
+        }
+  );
+  return data;
+}
  

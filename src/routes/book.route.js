@@ -14,4 +14,6 @@ router.delete('/:id',bookByIdValidator, userAuth, BookController.deleteBook );
 
 router.get('',userAuth, BookController.getAllBooks);
 
+router.get('/:id', bookByIdValidator,userAuth, BookController.getBook);
+
 export default router;
