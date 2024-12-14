@@ -16,3 +16,19 @@ export const addBookToCart = async (req, res) => {
     });
   }
 };
+
+export const updateBookToCart = async (req, res) => {
+  try {
+    const data = await CartService.updateBookToCart(req.params.id, req.body);
+    res.status(HttpStatus.ACCEPTED).json({
+      code: HttpStatus.ACCEPTED,
+      data: data,
+      message: 'Book updated to cart successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.BAD_REQUEST).json({
+      code: HttpStatus.BAD_REQUEST,
+      message: `${error}`
+    });
+  }
+};

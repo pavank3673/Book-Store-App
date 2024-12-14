@@ -42,3 +42,30 @@ export const addBookToCart = async (bookId, userId) => {
     throw new Error('Book already added to cart');
   }
 };
+
+export const updateBookToCart = async (bookId, body) => {
+  const existingCartBook = await getCartByBookAndUser(bookId, body.userId);
+  if (existingCartBook !== null) {
+    const book = await BookService.getBook(bookId);
+    let totalPrice = book.price * body.bookQuantity;
+
+    const data = await sequelize.query(
+      'UPDATE carts SET "bookId" = :bookid, "bookQuantity" = :quantity, "bookTotalPrice" = :totalprice, "UserId" = :userid, "updatedAt" = :updatedat WHERE "cartDetailId" = :cartdetailid RETURNING *',
+      {
+        replacements: {
+          cartdetailid: existingCartBook.cartDetailId,
+          bookid: existingCartBook.bookId,
+          quantity: body.bookQuantity,
+          totalprice: totalPrice,
+          userid: existingCartBook.UserId,
+          updatedat: new Date()
+        },
+        type: QueryTypes.UPDATE
+      }
+    );
+
+    return data[0][0];
+  } else {
+    throw new Error('Book doesnot exist in cart');
+  }
+};

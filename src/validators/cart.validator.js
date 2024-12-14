@@ -16,3 +16,25 @@ export const cartValidator = (req, res, next) => {
     next();
   }
 };
+
+export const updateCartValidator = (req, res, next) => {
+  const reqParamsSchema = Joi.object({
+    id: Joi.string()
+  });
+
+  const reqBodySchema = Joi.object({
+    bookQuantity: Joi.number().required()
+  });
+  const reqParamsValidation = reqParamsSchema.validate(req.params);
+  const reqBodyValidation = reqBodySchema.validate(req.body);
+  console.log('inside cart update validator');
+
+  if (reqParamsValidation.error || reqBodyValidation.error) {
+    return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
+      code: HttpStatus.UNPROCESSABLE_ENTITY,
+      message: reqParamsValidation.error ? reqParamsValidation.error.message : reqBodyValidation.error.message
+    });
+  } else {
+    next();
+  }
+};
