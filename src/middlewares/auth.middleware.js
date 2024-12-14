@@ -21,7 +21,7 @@ export const userAuth = async (req, res, next) => {
 
     const result = jwt.verify(bearerToken, process.env.ACCESS_TOKEN_SECRET);
     req.body.userId = result.id;
-    console.log("req.body.userId" + req.body.userId);
+    console.log('req.body.userId' + req.body.userId);
     next();
   } catch (error) {
     res.status(HttpStatus.FORBIDDEN).json({
@@ -30,4 +30,3 @@ export const userAuth = async (req, res, next) => {
     });
   }
 };
-
