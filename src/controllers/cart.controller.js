@@ -64,3 +64,19 @@ export const getBookFromCart = async (req, res) => {
     });
   }
 };
+
+export const getAllBooksFromCart = async (req, res) => {
+  try {
+    const data = await CartService.getAllBooksFromCart(req.body.userId);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'Books fetched from cart successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.NOT_FOUND).json({
+      code: HttpStatus.NOT_FOUND,
+      message: `${error}`
+    });
+  }
+};

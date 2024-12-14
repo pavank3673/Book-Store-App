@@ -94,3 +94,18 @@ export const getBookFromCart = async (bookId, userId) => {
     throw new Error('Book not found in cart');
   }
 };
+
+export const getAllBooksFromCart = async (userId) => {
+  const data = await sequelize.query('SELECT * FROM carts WHERE "UserId" = :userid', {
+    replacements: {
+      userid: userId
+    },
+    type: QueryTypes.SELECT
+  });
+
+  if (data.length !== 0) {
+    return data;
+  } else {
+    throw new Error('Cart is empty');
+  }
+};

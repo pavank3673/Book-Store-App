@@ -13,4 +13,6 @@ router.delete('/:id', cartValidator, userAuth, CartController.removeBookFromCart
 
 router.get('/:id', cartValidator, userAuth, CartController.getBookFromCart);
 
+router.get('', userAuth, CartController.getAllBooksFromCart);
+
 export default router;
