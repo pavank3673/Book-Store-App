@@ -69,3 +69,19 @@ export const updateBookToCart = async (bookId, body) => {
     throw new Error('Book doesnot exist in cart');
   }
 };
+
+export const removeBookFromCart = async (bookId, userId) => {
+  const existingCartBook = await getCartByBookAndUser(bookId, userId);
+  if (existingCartBook !== null) {
+    const data = await sequelize.query('DELETE FROM carts WHERE "cartDetailId" = :cartdetailid RETURNING *', {
+      replacements: {
+        cartdetailid: existingCartBook.cartDetailId
+      },
+      type: QueryTypes.DELETE
+    });
+
+    return data[0][0];
+  } else {
+    throw new Error('Book doesnot exist in cart');
+  }
+};

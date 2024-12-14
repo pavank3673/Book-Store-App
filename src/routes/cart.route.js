@@ -9,4 +9,6 @@ router.post('/:id', cartValidator, userAuth, CartController.addBookToCart);
 
 router.put('/:id', updateCartValidator, userAuth, CartController.updateBookToCart);
 
+router.delete('/:id', cartValidator, userAuth, CartController.removeBookFromCart);
+
 export default router;
