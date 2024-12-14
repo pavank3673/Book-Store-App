@@ -11,4 +11,6 @@ router.put('/:id', updateCartValidator, userAuth, CartController.updateBookToCar
 
 router.delete('/:id', cartValidator, userAuth, CartController.removeBookFromCart);
 
+router.get('/:id', cartValidator, userAuth, CartController.getBookFromCart);
+
 export default router;

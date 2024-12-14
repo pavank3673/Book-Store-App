@@ -48,3 +48,19 @@ export const removeBookFromCart = async (req, res) => {
     });
   }
 };
+
+export const getBookFromCart = async (req, res) => {
+  try {
+    const data = await CartService.getBookFromCart(req.params.id, req.body.userId);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'Book found from cart successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.NOT_FOUND).json({
+      code: HttpStatus.NOT_FOUND,
+      message: `${error}`
+    });
+  }
+};

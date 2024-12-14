@@ -85,3 +85,12 @@ export const removeBookFromCart = async (bookId, userId) => {
     throw new Error('Book doesnot exist in cart');
   }
 };
+
+export const getBookFromCart = async (bookId, userId) => {
+  const existingCartBook = await getCartByBookAndUser(bookId, userId);
+  if (existingCartBook !== null) {
+    return existingCartBook;
+  } else {
+    throw new Error('Book not found in cart');
+  }
+};
