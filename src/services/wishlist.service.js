@@ -63,3 +63,18 @@ export const removeBookFromWishlist = async (bookId, userId) => {
     throw new Error('Book doesnot exist in wishlist');
   }
 };
+
+export const getAllBooksFromWishlist = async (userId) => {
+  const data = await sequelize.query('SELECT * FROM wishlists WHERE "UserId" = :userid', {
+    replacements: {
+      userid: userId
+    },
+    type: QueryTypes.SELECT
+  });
+
+  if (data.length !== 0) {
+    return data;
+  } else {
+    throw new Error('Wishlist is empty');
+  }
+};

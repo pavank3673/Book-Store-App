@@ -11,4 +11,6 @@ router.get('/:id', wishlistValidator, userAuth, WishlistController.getBookFromWi
 
 router.delete('/:id', wishlistValidator, userAuth, WishlistController.removeBookFromWishlist);
 
+router.get('', userAuth, WishlistController.getAllBooksFromWishlist);
+
 export default router;
