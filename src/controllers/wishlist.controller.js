@@ -32,3 +32,19 @@ export const getBookFromWishlist = async (req, res) => {
     });
   }
 };
+
+export const removeBookFromWishlist = async (req, res) => {
+  try {
+    const data = await WishlistService.removeBookFromWishlist(req.params.id, req.body.userId);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'Book removed from wishlist successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.NOT_FOUND).json({
+      code: HttpStatus.NOT_FOUND,
+      message: `${error}`
+    });
+  }
+};

@@ -9,4 +9,6 @@ router.post('/:id', wishlistValidator, userAuth, WishlistController.addBookToWis
 
 router.get('/:id', wishlistValidator, userAuth, WishlistController.getBookFromWishlist);
 
+router.delete('/:id', wishlistValidator, userAuth, WishlistController.removeBookFromWishlist);
+
 export default router;

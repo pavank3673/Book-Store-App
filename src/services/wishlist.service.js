@@ -47,3 +47,19 @@ export const getBookFromWishlist = async (bookId, userId) => {
     throw new Error('Book doesnot exist in wishlist');
   }
 };
+
+export const removeBookFromWishlist = async (bookId, userId) => {
+  const existingWishlistBook = await getWishlistByBookAndUser(bookId, userId);
+  if (existingWishlistBook !== null) {
+    const data = await sequelize.query('DELETE FROM wishlists WHERE "bookId" = :bookid AND "UserId" = :userid RETURNING *', {
+      replacements: {
+        bookid: bookId,
+        userid: userId
+      },
+      type: QueryTypes.DELETE
+    });
+    return data[0][0];
+  } else {
+    throw new Error('Book doesnot exist in wishlist');
+  }
+};
