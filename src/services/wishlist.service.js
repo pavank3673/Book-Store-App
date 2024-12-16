@@ -35,3 +35,15 @@ export const addBookToWishlist = async (bookId, userId) => {
     throw new Error('Book already added to wishlist');
   }
 };
+
+export const getBookFromWishlist = async (bookId, userId) => {
+  const existingWishlistBook = await getWishlistByBookAndUser(bookId, userId);
+  if (existingWishlistBook !== null) {
+    const book = await BookService.getBook(bookId);
+    book.wishlistId = existingWishlistBook.wishlistId;
+
+    return book;
+  } else {
+    throw new Error('Book doesnot exist in wishlist');
+  }
+};

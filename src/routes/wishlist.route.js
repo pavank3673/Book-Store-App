@@ -7,4 +7,6 @@ const router = express.Router();
 
 router.post('/:id', wishlistValidator, userAuth, WishlistController.addBookToWishlist);
 
+router.get('/:id', wishlistValidator, userAuth, WishlistController.getBookFromWishlist);
+
 export default router;
