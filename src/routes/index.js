@@ -21,6 +21,7 @@ const routes = () => {
   router.use('/carts', cartRoute);
   router.use('/wishlists', wishlistRoute);
   router.use('/customerDetails', CustomerDetailRoute);
+  router.use('/orderSummaries', OrderSummaryRoute);
 
   return router;
 };
