@@ -10,9 +10,7 @@ export const registrationValidator = (req, res, next) => {
   });
   const { error } = schema.validate(req.body);
   if (error) {
-    return res
-      .status(HttpStatus.UNPROCESSABLE_ENTITY)
-      .json({ code: HttpStatus.UNPROCESSABLE_ENTITY, message: `${error}` });
+    return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({ code: HttpStatus.UNPROCESSABLE_ENTITY, message: `${error}` });
   } else {
     next();
   }
@@ -27,6 +25,21 @@ export const loginUserValidator = (req, res, next) => {
   if (error) {
     return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
       code: HttpStatus.UNPROCESSABLE_ENTITY,
+      message: `${error}`
+    });
+  } else {
+    next();
+  }
+};
+
+export const refreshTokenValidator = (req, res, next) => {
+  const schema = Joi.object({
+    refreshToken: Joi.string().required()
+  });
+  const { error } = schema.validate(req.body);
+  if (error) {
+    return res.status(HttpStatus.FORBIDDEN).json({
+      code: HttpStatus.FORBIDDEN,
       message: `${error}`
     });
   } else {

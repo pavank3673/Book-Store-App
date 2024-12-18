@@ -15,9 +15,7 @@ export const registerUser = async (req, res) => {
       message: 'User registered successfully'
     });
   } catch (error) {
-    res
-      .status(HttpStatus.CONFLICT)
-      .json({ code: HttpStatus.CONFLICT, message: `${error}` });
+    res.status(HttpStatus.CONFLICT).json({ code: HttpStatus.CONFLICT, message: `${error}` });
   }
 };
 
@@ -35,9 +33,7 @@ export const registerAdmin = async (req, res) => {
       message: 'Admin registered successfully'
     });
   } catch (error) {
-    res
-      .status(HttpStatus.CONFLICT)
-      .json({ code: HttpStatus.CONFLICT, message: `${error}` });
+    res.status(HttpStatus.CONFLICT).json({ code: HttpStatus.CONFLICT, message: `${error}` });
   }
 };
 
@@ -52,6 +48,22 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     res.status(HttpStatus.BAD_REQUEST).json({
       code: HttpStatus.BAD_REQUEST,
+      message: `${error}`
+    });
+  }
+};
+
+export const generateAccessToken = async (req, res) => {
+  try {
+    const token = await UserService.generateAccessToken(req.body);
+    res.status(HttpStatus.CREATED).json({
+      code: HttpStatus.CREATED,
+      data: token,
+      message: 'Access token generated successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.FORBIDDEN).json({
+      code: HttpStatus.FORBIDDEN,
       message: `${error}`
     });
   }

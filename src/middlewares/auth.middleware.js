@@ -26,7 +26,7 @@ export const userAuth = async (req, res, next) => {
   } catch (error) {
     res.status(HttpStatus.FORBIDDEN).json({
       code: HttpStatus.FORBIDDEN,
-      message: 'Authorization token mismatch'
+      message: 'Authorization token failed'
     });
   }
 };
