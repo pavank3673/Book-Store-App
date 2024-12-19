@@ -79,8 +79,7 @@ export const removeBookFromCart = async (bookId, userId) => {
       },
       type: QueryTypes.DELETE
     });
-
-    return data[0][0];
+    return data[0];
   } else {
     throw new Error('Book doesnot exist in cart');
   }
@@ -95,16 +94,27 @@ export const getBookFromCart = async (bookId, userId) => {
   }
 };
 
-export const getAllBooksFromCart = async (userId) => {
-  const data = await sequelize.query('SELECT * FROM carts WHERE "UserId" = :userid', {
+export const getAllBooksFromCart = async (body) => {
+  const limit = 10;
+  let offset = limit * (body.pageNo - 1);
+  const resultData = await sequelize.query('SELECT * FROM carts WHERE "UserId" = :userid LIMIT 10 OFFSET :offsetvalue', {
     replacements: {
-      userid: userId
+      userid: body.userId,
+      offsetvalue: offset
     },
     type: QueryTypes.SELECT
   });
 
-  if (data.length !== 0) {
-    return data;
+  const totalCount = await sequelize.query('SELECT COUNT(*) FROM carts WHERE "UserId" = :userid', {
+    replacements: {
+      userid: body.userId
+    },
+    type: QueryTypes.SELECT,
+    plain: true
+  });
+
+  if (resultData.length !== 0) {
+    return { results: resultData, total_count: totalCount.count };
   } else {
     throw new Error('Cart is empty');
   }

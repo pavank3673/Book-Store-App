@@ -67,7 +67,7 @@ export const getBookFromCart = async (req, res) => {
 
 export const getAllBooksFromCart = async (req, res) => {
   try {
-    const data = await CartService.getAllBooksFromCart(req.body.userId);
+    const data = await CartService.getAllBooksFromCart(req.body);
     res.status(HttpStatus.OK).json({
       code: HttpStatus.OK,
       data: data,
