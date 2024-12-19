@@ -8,7 +8,6 @@ const Token = require('../models/token')(sequelize, DataTypes);
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-// get user by email
 const getUserByEmail = async (email) => {
   const data = await sequelize.query('SELECT * FROM users WHERE email = :email', {
     replacements: { email: email },
@@ -27,7 +26,6 @@ export const getUserById = async (id) => {
   return data;
 };
 
-//create new user
 export const registerUser = async (body) => {
   const existingUser = await getUserByEmail(body.email);
   if (existingUser === null) {
@@ -54,7 +52,6 @@ export const registerUser = async (body) => {
   }
 };
 
-// create new admin
 export const registerAdmin = async (body) => {
   const existingAdmin = await getUserByEmail(body.email);
   if (existingAdmin === null) {

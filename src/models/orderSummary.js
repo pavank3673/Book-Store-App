@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-        modelName: 'order_summary',
-        freezeTableName: true
+      modelName: 'order_summary',
+      freezeTableName: true
     }
   );
   OrderSummary.belongsTo(User, { as: ' ' });

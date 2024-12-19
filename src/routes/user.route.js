@@ -5,10 +5,8 @@ import { userRole, adminRole } from '../middlewares/role.middleware';
 
 const router = express.Router();
 
-//route to create a new user
 router.post('', registrationValidator, userRole, userController.registerUser);
 
-// route to create a new admin
 router.post('/admin', registrationValidator, adminRole, userController.registerAdmin);
 
 router.post('/login', loginUserValidator, userController.loginUser);
