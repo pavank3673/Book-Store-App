@@ -1,6 +1,6 @@
 import express from 'express';
 import { userAuth } from '../middlewares/auth.middleware';
-import { wishlistValidator } from '../validators/wishlist.validator';
+import { wishlistValidator, getAllWishlistsValidator } from '../validators/wishlist.validator';
 import * as WishlistController from '../controllers/wishlist.controller';
 
 const router = express.Router();
@@ -11,6 +11,6 @@ router.get('/:id', wishlistValidator, userAuth, WishlistController.getBookFromWi
 
 router.delete('/:id', wishlistValidator, userAuth, WishlistController.removeBookFromWishlist);
 
-router.get('', userAuth, WishlistController.getAllBooksFromWishlist);
+router.get('', getAllWishlistsValidator, userAuth, WishlistController.getAllBooksFromWishlist);
 
 export default router;

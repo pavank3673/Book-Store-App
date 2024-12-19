@@ -51,7 +51,7 @@ export const removeBookFromWishlist = async (req, res) => {
 
 export const getAllBooksFromWishlist = async (req, res) => {
   try {
-    const data = await WishlistService.getAllBooksFromWishlist(req.body.userId);
+    const data = await WishlistService.getAllBooksFromWishlist(req.body);
     res.status(HttpStatus.OK).json({
       code: HttpStatus.OK,
       data: data,
