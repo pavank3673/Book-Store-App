@@ -51,7 +51,7 @@ export const newBook = async (req, res) => {
 
   export const getAllBooks = async (req, res) => {
     try {
-      const data = await BookService.getAllBooks();
+      const data = await BookService.getAllBooks(req.body);
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,
